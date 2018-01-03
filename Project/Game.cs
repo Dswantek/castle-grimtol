@@ -29,7 +29,7 @@ namespace CastleGrimtol.Project
 
             Room room2 = new Room()
             {
-                Description = "The main stairwell. The way up is blocked. Maybe if we go to a different floor we can find a way up, an elevator or another stairway.",
+                Description = "The main stairwell. The way up is blocked. Maybe if we go to a different floor we can find a way up, an elevator or another stairway. There is a door down one flight to the east and you can go back to the start if you go north.",
                 Name = "Stairs",
                 Items = new List<Item>(),
                 Exits = new Dictionary<string, Room>()
@@ -37,7 +37,7 @@ namespace CastleGrimtol.Project
 
             Room room3 = new Room()
             {
-                Description = "Your in the main lobby of the building. All the doors are closed but you can hear/see zombies trying to make there way in... better hurry and find a way of here before they get you.",
+                Description = "Your in the main lobby of the building. All the doors are closed but you can hear/see zombies trying to make there way in... better hurry and find a way of here before they get you. There is a door to the south and the door you came through to the east. Or we could kill some zombies?? Look around to see if there are any items.",
                 Name = "Lobby",
                 Items = new List<Item>(),
                 Exits = new Dictionary<string, Room>()
@@ -186,7 +186,7 @@ namespace CastleGrimtol.Project
 
             elevatorShaft.Items.Add(syringe);
             elevatorShaft.Items.Add(revolver);
-            room2.Items.Add(bat);
+            room1.Items.Add(bat);
             room1.Items.Add(key);
             room3.Items.Add(gun);
             rooftop.Items.Add(nikes);
@@ -291,7 +291,7 @@ namespace CastleGrimtol.Project
             }
             else if (item.Name.ToLower() == "gun")
             {
-                if (CurrentRoom.Name.ToLower() == "Lobby")
+                if (CurrentRoom.Name == "Lobby")
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Time to kill some zombies! Get ready!");
@@ -332,7 +332,7 @@ namespace CastleGrimtol.Project
                 if (CurrentRoom.Name == "Stairs")
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("This is a baseball bat but youre not playing baseball... one strike and you're out. Good luck!");
+                    Console.WriteLine("Zombies are coming up the stairs! Good thing you pulled your bat out. This is a baseball bat but you're not playing baseball... one strike and you're out. Good luck!");
                     Console.WriteLine("If you can answer this question you will survive.\nWhat is the capitol city of Wyoming?");
                     var riddleAnswer = Console.ReadLine().ToLower();
                     if (riddleAnswer == "cheyenne")
