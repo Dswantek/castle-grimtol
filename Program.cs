@@ -10,6 +10,7 @@ namespace CastleGrimtol
         {
             Project.Game adventureGame = new Game();
             adventureGame.Playing = true;
+            Console.BackgroundColor = ConsoleColor.Black;
             adventureGame.Setup();
             // int userEnergy = 10;
 

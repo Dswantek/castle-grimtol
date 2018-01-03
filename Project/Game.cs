@@ -151,12 +151,12 @@ namespace CastleGrimtol.Project
             // }
             
             CurrentPlayer = new Player(name);
-            Console.WriteLine($"\n\nWelcome to the game {CurrentPlayer.Name}.\nBe careful and choose wisely. One false move and it could all be over. Good Luck!\n\n\n");
+            Console.WriteLine($"\n\nWelcome to the game {CurrentPlayer.Name}.\nBe careful and choose wisely. One false move and it could all be over. Good Luck!\n\n");
             UserHelp();
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine($"{CurrentRoom.Name}");
+            Console.WriteLine($"\n\n{CurrentRoom.Name}");
             Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.WriteLine("You slowly wake up. Lights are flickering the tv is on. You realize you're at the dentist. How long have you been here? Where is everyone? What time is it? Take a look around to see whats in the room.");
+            Console.WriteLine("You slowly wake up. Lights are flickering the tv is on. You realize you're at the dentist. How long have you been here? Where is everyone? What time is it? Take a look around to see whats in the room.\n");
             Console.ForegroundColor = ConsoleColor.White;
 
             room1.Exits.Add("south", room2);
