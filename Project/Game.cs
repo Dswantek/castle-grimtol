@@ -128,28 +128,20 @@ namespace CastleGrimtol.Project
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("------------------ZOMBIE Apocalypse------------------");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("What is your name: ");
-            var name = Console.ReadLine();
+            var name = "";
+            while (name == "" || name == " ")
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("------------------ZOMBIE Apocalypse------------------");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("What is your name: ");
+                name = Console.ReadLine();
+                Console.Clear();
+            }
 
-            //Attempted to solve issue where player can have no name or a space as a name.
-            // int attempts = 3;
-            // while (name == " ")
-            // {
-            //     if (name == " " && attempts > 0)
-            //     {
-            //         attempts--;
-            //         Console.WriteLine($"Please enter a valid name. You have {attempts} left");
-            //         Console.WriteLine("What is your name: ");
-            //     }
-            //     else
-            //     {
-            //         EndGame();
-            //     }
-            // }
-            
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("\n\n------------------ZOMBIE Apocalypse------------------");
+            Console.ForegroundColor = ConsoleColor.White;
             CurrentPlayer = new Player(name);
             Console.WriteLine($"\n\nWelcome to the game {CurrentPlayer.Name}.\nBe careful and choose wisely. One false move and it could all be over. Good Luck!\n\n");
             UserHelp();
@@ -256,96 +248,137 @@ namespace CastleGrimtol.Project
         public void UseItem(string itemName)
         {
             Item item = CurrentPlayer.Inventory.Find(Item => Item.Name.ToLower() == itemName);
-            if (item.Name.ToLower() == "syringe")
+            if (CurrentPlayer.Inventory.Contains(item))
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Oh no..... Whats happening.... This feels weird.....\nWOW! I feel like the hulk! Lets get out of here!");
-                Console.WriteLine("Looks like you can't be stopped! You broke out of the building and are now invincible. I guess thats one way to escape");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Want to play again? Try to actually escape this time without super powers.\nY/N?");
-                var answer = Console.ReadLine().ToLower();
-                if (answer == "yes" || answer == "y")
-                {
-                    Reset();
-                }
-                else if (answer == "n" || answer == "no")
-                {
-                    Playing = false;
-                }
-            }
-            else if (item.Name.ToLower() == "revolver")
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("I guess this is the end. At least you didn't become a zombie and you have a huge casket made of concrete :)");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Want to play again? Try to actually escape this time without killing yourself\nY/N?");
-                var answer = Console.ReadLine().ToLower();
-                if (answer == "yes" || answer == "y")
-                {
-                    Reset();
-                }
-                else if (answer == "n" || answer == "no")
-                {
-                    Playing = false;
-                }
-            }
-            else if (item.Name.ToLower() == "gun")
-            {
-                if (CurrentRoom.Name == "Lobby")
+                if (item.Name.ToLower() == "syringe")
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Time to kill some zombies! Get ready!");
-                    Console.WriteLine("There are 24 Zombies and 12 bullets. How will you kill them all?\nHint: There is a large tank of gas in the middle of the room.");
+                    Console.WriteLine("Oh no..... Whats happening.... This feels weird.....\nWOW! I feel like the hulk! Lets get out of here!");
+                    Console.WriteLine("Looks like you can't be stopped! You broke out of the building and are now invincible. I guess thats one way to escape");
                     Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Want to play again? Try to actually escape this time without super powers.\nY/N?");
                     var answer = Console.ReadLine().ToLower();
-                    if (answer == "shoot tank")
+                    if (answer == "yes" || answer == "y")
+                    {
+                        Reset();
+                    }
+                    else if (answer == "n" || answer == "no")
+                    {
+                        Playing = false;
+                    }
+                }
+                else if (item.Name.ToLower() == "revolver")
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("I guess this is the end. At least you didn't become a zombie and you have a huge casket made of concrete :)");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Want to play again? Try to actually escape this time without killing yourself\nY/N?");
+                    var answer = Console.ReadLine().ToLower();
+                    if (answer == "yes" || answer == "y")
+                    {
+                        Reset();
+                    }
+                    else if (answer == "n" || answer == "no")
+                    {
+                        Playing = false;
+                    }
+                }
+                else if (item.Name.ToLower() == "gun")
+                {
+                    if (CurrentRoom.Name == "Lobby")
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("You killed all the zombies! Good job. Now you have time to figure out what to do next.");
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("Wrong. You now have 12 zombies runnning at you! Hurry get out of here!");
-                        Console.WriteLine("You were killed by the zombies. Better luck next time!\n Want to play again? Y/N");
+                        Console.WriteLine("Time to kill some zombies! Get ready!");
+                        Console.WriteLine("There are 24 Zombies and 12 bullets. How will you kill them all?\nHint: There is a large tank of gas in the middle of the room.");
                         Console.ForegroundColor = ConsoleColor.White;
-                        var playAgain = Console.ReadLine().ToLower();
-                        if (playAgain == "y" || playAgain == "yes")
+                        var answer = Console.ReadLine().ToLower();
+                        if (answer == "shoot tank")
                         {
-                            Reset();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("You killed all the zombies! Good job. Now you have time to figure out what to do next.");
                         }
                         else
                         {
-                            Playing = false;
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("Wrong. You now have 12 zombies runnning at you! Hurry get out of here!");
+                            Console.WriteLine("You were killed by the zombies. Better luck next time!\n Want to play again? Y/N");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            var playAgain = Console.ReadLine().ToLower();
+                            if (playAgain == "y" || playAgain == "yes")
+                            {
+                                Reset();
+                            }
+                            else
+                            {
+                                Playing = false;
+                            }
                         }
-                    }
 
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You cannot use this item in this room");
-                }
-            }
-            else if (item.Name.ToLower() == "bat")
-            {
-                if (CurrentRoom.Name == "Stairs")
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Zombies are coming up the stairs! Good thing you pulled your bat out. This is a baseball bat but you're not playing baseball... one strike and you're out. Good luck!");
-                    Console.WriteLine("If you can answer this question you will survive.\nWhat is the capitol city of Wyoming?");
-                    var riddleAnswer = Console.ReadLine().ToLower();
-                    if (riddleAnswer == "cheyenne")
-                    {
-                        Console.WriteLine("Great job! You survived! There are plenty more where that came from so watch your back!");
-                        // could make the bat unavailable after using it.....
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Wrong Answer! You were eaten by zombies! It's only a matter of time before you become one of them. Better luck next time!");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("Would you like to play again?");
+                        Console.WriteLine("You cannot use this item in this room");
+                    }
+                }
+                else if (item.Name.ToLower() == "bat")
+                {
+                    if (CurrentRoom.Name == "Stairs")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Zombies are coming up the stairs! Good thing you pulled your bat out. This is a baseball bat but you're not playing baseball... one strike and you're out. Good luck!");
+                        Console.WriteLine("If you can answer this question you will survive.\nWhat is the capitol city of Wyoming?");
+                        var riddleAnswer = Console.ReadLine().ToLower();
+                        if (riddleAnswer == "cheyenne")
+                        {
+                            Console.WriteLine("Great job! You survived! There are plenty more where that came from so watch your back!");
+                            // could make the bat unavailable after using it.....
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Wrong Answer! You were eaten by zombies! It's only a matter of time before you become one of them. Better luck next time!");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("Would you like to play again?");
+                            var playAgain = Console.ReadLine().ToLower();
+                            if (playAgain == "y" || playAgain == "yes")
+                            {
+                                Reset();
+                            }
+                            else
+                            {
+                                Playing = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("You cannot use this item in this room. Try again!");
+                    }
+                }
+                else if (item.Name.ToLower() == "key")
+                {
+                    if (CurrentRoom.Name == "Top Floor")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("A las the key was useful. You opened the door to the rooftop and now you can go through the door and make your way to the helicopter! If you are fast enough!");
+                        // Rooms.rooftop.Locked = false;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("You cannot use this item in this room. Try again!");
+                    }
+                }
+                else if (item.Name.ToLower() == "nikes")
+                {
+                    if (CurrentRoom.Name == "Rooftop")
+                    {
+                        Console.Beep();
+                        Console.Beep();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("--------Congratulations You Escaped!--------\nYou made it! The helicopter pulled away as you jumped on. You escaped the Zombie Apocalypse... for now. \nWant to play again? Y/N");
                         var playAgain = Console.ReadLine().ToLower();
                         if (playAgain == "y" || playAgain == "yes")
                         {
@@ -355,52 +388,21 @@ namespace CastleGrimtol.Project
                         {
                             Playing = false;
                         }
-                    }
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You cannot use this item in this room. Try again!");
-                }
-            }
-            else if (item.Name.ToLower() == "key")
-            {
-                if (CurrentRoom.Name == "Top Floor")
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("A las the key was useful. You opened the door to the rooftop and now you can go through the door and make your way to the helicopter! If you are fast enough!");
-                    // Rooms.rooftop.Locked = false;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You cannot use this item in this room. Try again!");
-                }
-            }
-            else if (item.Name.ToLower() == "nikes")
-            {
-                if (CurrentRoom.Name == "Rooftop")
-                {
-                    Console.Beep();
-                    Console.Beep();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("--------Congratulations You Escaped!--------\nYou made it! The helicopter pulled away as you jumped on. You escaped the Zombie Apocalypse... for now. \nWant to play again? Y/N");
-                    var playAgain = Console.ReadLine().ToLower();
-                    if (playAgain == "y" || playAgain == "yes")
-                    {
-                        Reset();
-                    }
-                    else
-                    {
-                        Playing = false;
-                    }
 
+                    }
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("That item does not exist. Try one of the items in your inventory");
+                    PlayerInventory();
                 }
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("That item does not exist. Try one of the items in your inventory");
+                Console.WriteLine("That item does not exist in your inventory. Try one of the items in your inventory");
+                PlayerInventory();
             }
         }
 
